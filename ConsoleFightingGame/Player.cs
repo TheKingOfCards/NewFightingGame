@@ -6,9 +6,10 @@ namespace PlayerLogic
         int maxHealth = 100;
 
         int mana = 0;
-        int MaxMana = 80;
+        int maxMana = 80;
 
         int xp = 0;
+        int coins = 0;
         int level = 0;
         int levelPoints = 0;
 
@@ -17,15 +18,19 @@ namespace PlayerLogic
 
         int healthPotions = 0;
         int maxHealthPotions = 5;
+        int healthPotionHealAmount = 20;
+
         int manaPotions = 0;
         int maxManaPotions = 5;
+        int manaPotionRaiseAmount = 15;
 
-        List<String> spells = new();
+        List<String> equippedSpells = new();
+
 
         public Player()
         {
             health = maxHealth;
-            mana = MaxMana;
+            mana = maxMana;
         }
 
         
@@ -66,15 +71,28 @@ namespace PlayerLogic
         //Uses healthpotions or manapotions
         public void UsePotions(char potionSelect)
         {
-
+            if(potionSelect == '1') //Heals the player
+            {
+                health += healthPotionHealAmount;
+                if(health > maxHealth)
+                {
+                    health = maxHealth;
+                }
+            }else if(potionSelect == '2') //Raises the players mana points
+            {
+                mana += manaPotionRaiseAmount;
+                if(mana > maxMana)
+                {
+                    mana = maxMana;
+                }
+            }
         }
 
 
-        //Takes in a enemys damage in a parameter and puts takes away from health
-        public int TakeDamage(int damage)
+        //Takes in a enemys pysical damage in a parameter and puts takes away from health
+        public void TakeDamage(int baseDamage, String usedSpell)
         {
 
-            return health;
         }
 
 
@@ -83,6 +101,7 @@ namespace PlayerLogic
         {
 
         }
+
 
 
         //Takes in the base xp from enemies killed and adds it to player xp (multipliers)
