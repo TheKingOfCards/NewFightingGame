@@ -84,6 +84,9 @@ namespace PlayerLogic
                 {
                     Console.WriteLine("1. Perks"); 
                     Perks();
+                }else
+                {
+                    return;
                 }
             }else if(isLooting == true) //The actions the player can take while looting
             {
@@ -102,7 +105,19 @@ namespace PlayerLogic
         //Player can either attack, use spells or get a higher dodge chance
         public void UsePhysical(char physicalSelect)
         {
-            Console.WriteLine("Works");
+            if(physicalSelect == '1')
+            {
+
+            }else if(physicalSelect == '2')
+            {
+
+            }else if(physicalSelect == '3')
+            {
+                
+            }else
+            {
+
+            }
         }
 
 

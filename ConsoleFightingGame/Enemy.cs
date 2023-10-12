@@ -1,3 +1,5 @@
+using System.Diagnostics.Contracts;
+
 namespace EnemyLogic
 {
     public class Enemy
@@ -5,7 +7,9 @@ namespace EnemyLogic
         public string name;
 
         public int health;
-        public int mana;
+        public int maxHealth;
+
+        public int maxSpells;
 
         public float dodgeChance;
         public float critChance;
@@ -92,14 +96,14 @@ namespace EnemyLogic
     }
 
 
-    //Class for the more nibmle enemy
+    //Class for the nibmle enemy
     public class NibmleEnemy: Enemy
     {
-        public int maxhealth = 50;
-
         public NibmleEnemy()
         {
-            health = maxhealth;
+            maxHealth = 50;
+            health = maxHealth;
+            maxSpells = 2;
 
             names.Add("Assassin");
             names.Add("Thief");
@@ -114,14 +118,14 @@ namespace EnemyLogic
 
 
 
-    //Class for the tank enemy
+    //Class for tank enemy
     public class TankEnemy: Enemy
     {
-        public int maxhealth = 150;
-
         public TankEnemy()
         {
-            health = maxhealth;
+            maxHealth = 150;
+            health = maxHealth;
+
             dodgeChance = 10f;
             critChance = 5f;
 
@@ -140,10 +144,13 @@ namespace EnemyLogic
     //Class for the flying enemy
     public class FlyingEnemy: Enemy
     {
-        public int maxhealth = 75;
 
         public FlyingEnemy()
         {
+            maxHealth = 75;
+            health = maxHealth;
+            maxSpells = 1;
+
             names.Add("Skyborne Harrier");
             names.Add("Aerial Seraph");
             names.Add("Stormwing Drake");
@@ -159,12 +166,11 @@ namespace EnemyLogic
 
     public class ElementalEnemy: Enemy
     {
-        public int maxHealth = 75;
-
         List<Char> elementalAffiliation = new();
 
         public ElementalEnemy()
         {
+            maxHealth = 75;
             health = maxHealth;
 
             elementalAffiliation.Add('F');
@@ -225,17 +231,17 @@ namespace EnemyLogic
     //Class for the wizard enemy
     public class WizardEnemy: Enemy
     {
-        int maxHealth = 75;
-        
         public WizardEnemy()
         {
+            maxHealth = 75;
             health = maxHealth;
+            maxSpells = 3;
 
-            names.Add("");
-            names.Add("");
-            names.Add("");
-            names.Add("");
-            names.Add("");
+            names.Add("Fladnag The Grey");
+            names.Add("Hotter Parry The Boy Who Died");
+            names.Add("The Strange Doctor");
+            names.Add("Whisperer of Os");
+            names.Add("Headmaster Smartledore");
         }
     }
 }
