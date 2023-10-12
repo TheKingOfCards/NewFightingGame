@@ -24,6 +24,9 @@ namespace PlayerLogic
         int maxManaPotions = 5;
         int manaPotionRaiseAmount = 15;
 
+        bool isFighting = false;
+        bool isLooting = false;
+
         List<String> equippedSpells = new();
 
 
@@ -31,25 +34,51 @@ namespace PlayerLogic
         {
             health = maxHealth;
             mana = maxMana;
+
+            equippedSpells.Add("NoSpell");
         }
 
-        
+
+        //Writes out the actions the player can do
+        public void WriteActionChoices()
+        {
+            isFighting = true;
+            if(isFighting == true)
+            {
+                Console.WriteLine("1. Physical Action \n2. Spells \n3. Potions");
+            }else if(isLooting == true)
+            {
+
+            }
+
+            Action(Console.ReadKey().KeyChar);
+        }
+
+
         //Takes the players action with a char
         public void Action(char playerInput)
         {
-            if(playerInput == '1')
+            if(isFighting == true) //The actions the player can take while fighting
             {
-                UsePhysical(Console.ReadKey().KeyChar);
-            }else if(playerInput == '2')
+                if(playerInput == '1')
+                {
+                    Console.WriteLine("1. Attack \n2. Shield \n3. Dodge");
+                    UsePhysical(Console.ReadKey().KeyChar);
+                }else if(playerInput == '2')
+                {
+                    UseSpells(Console.ReadKey().KeyChar);
+                }else if(playerInput == '3')
+                {
+                    Console.WriteLine("1. Health Potion\n2. Mana Potion");
+                    UsePotions(Console.ReadKey().KeyChar);
+                }else if(playerInput == '4')
+                {
+                    Console.WriteLine("1. Perks"); 
+                    Perks();
+                }
+            }else if(isLooting == true) //The actions the player can take while looting
             {
-                UseSpells(Console.ReadKey().KeyChar);
-            }else if(playerInput == '3')
-            {
-                Console.WriteLine("1. Health Potion\n2. Mana Potion");
-                UsePotions(Console.ReadKey().KeyChar);
-            }else if(playerInput == '4')
-            {
-                Console.WriteLine("1. Perks"); 
+
             }
         }
 
@@ -64,7 +93,7 @@ namespace PlayerLogic
         //Player can either attack, use spells or get a higher dodge chance
         public void UsePhysical(char physicalSelect)
         {
-
+            Console.WriteLine("Works");
         }
 
 
@@ -92,7 +121,13 @@ namespace PlayerLogic
         //Takes in a enemys pysical damage in a parameter and puts takes away from health
         public void TakeDamage(int baseDamage, String usedSpell)
         {
+            if(usedSpell == "NoSpell") //Take physical damage
+            {
 
+            }else //Take spelldamage and passive effects
+            {
+
+            }
         }
 
 
