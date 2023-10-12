@@ -2,26 +2,32 @@ namespace PlayerLogic
 {
     public class Player
     {
-        int health = 0;
+        public string name;
+
+        public int health = 0;
         int maxHealth = 100;
 
-        int mana = 0;
+        public int mana = 0;
         int maxMana = 80;
 
-        int xp = 0;
-        int coins = 0;
-        int level = 0;
-        int levelPoints = 0;
+        bool onFire = false;
+
+        public int xp = 0;
+        public int levelUpPoint = 50;
+        public int coins = 0;
+        public int level = 0;
+        public int perkPoints = 0;
 
         char characterType;
         char elementAffiliation;
+        public string element;
 
-        int healthPotions = 0;
+        public int healthPotions = 0;
         int maxHealthPotions = 5;
         int healthPotionHealAmount = 20;
 
-        int manaPotions = 0;
-        int maxManaPotions = 5;
+        public int manaPotions = 0; 
+        int maxManaPotions = 5; 
         int manaPotionRaiseAmount = 15;
 
         bool isFighting = false;
@@ -35,6 +41,9 @@ namespace PlayerLogic
             health = maxHealth;
             mana = maxMana;
 
+            healthPotions = maxHealthPotions;
+            manaPotions = maxManaPotions;
+
             equippedSpells.Add("NoSpell");
         }
 
@@ -45,19 +54,19 @@ namespace PlayerLogic
             isFighting = true;
             if(isFighting == true)
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("1. Physical Action \n2. Spells \n3. Potions");
             }else if(isLooting == true)
             {
-
+                
             }
-
-            Action(Console.ReadKey().KeyChar);
         }
 
 
         //Takes the players action with a char
         public void Action(char playerInput)
         {
+            Console.ForegroundColor = ConsoleColor.White;
             if(isFighting == true) //The actions the player can take while fighting
             {
                 if(playerInput == '1')
@@ -102,24 +111,40 @@ namespace PlayerLogic
         {
             if(potionSelect == '1') //Heals the player
             {
-                health += healthPotionHealAmount;
-                if(health > maxHealth)
+                if(healthPotions > 0)
                 {
-                    health = maxHealth;
+                    healthPotions--;
+                    health += healthPotionHealAmount;
+                    if(health > maxHealth)
+                    {
+                        health = maxHealth;
+                    }
+                }else
+                {
+                    Console.WriteLine("\nYou dont have any health potions left");
+                    Console.ReadKey();
                 }
-            }else if(potionSelect == '2') //Raises the players mana points
+            }else if(potionSelect == '2') //Raises the players mana
             {
-                mana += manaPotionRaiseAmount;
-                if(mana > maxMana)
+                if(manaPotions > 0)
                 {
-                    mana = maxMana;
+                    manaPotions--;
+                    mana += manaPotionRaiseAmount;
+                    if(mana > maxMana)
+                    {
+                        mana = maxMana;
+                    }
+                }else
+                {
+                    Console.WriteLine("\nYou dont have any mana potions left");
+                    Console.ReadKey();
                 }
             }
         }
 
 
         //Takes in a enemys pysical damage in a parameter and puts takes away from health
-        public void TakeDamage(int baseDamage, String usedSpell)
+        public void TakeDamage(int baseDamage, string usedSpell)
         {
             if(usedSpell == "NoSpell") //Take physical damage
             {
@@ -140,8 +165,15 @@ namespace PlayerLogic
 
 
         //Takes in the base xp from enemies killed and adds it to player xp (multipliers)
-        public int GetXp(int baseXp)
+        public int GetXp(int baseDropXp)
         {
+            if(xp  >= levelUpPoint)
+            {
+                level++;
+                perkPoints++;
+                xp -= levelUpPoint;
+            }
+
             return xp;
         }
     }

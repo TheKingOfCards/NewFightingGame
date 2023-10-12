@@ -10,6 +10,8 @@ namespace EnemyLogic
         public float dodgeChance;
         public float critChance;
 
+        bool onFire = false;
+
         public List<String> spells = new();
         public List<String> names = new();
         List<Char> affiliations = new();
@@ -25,6 +27,8 @@ namespace EnemyLogic
             affiliations.Add('W');
             affiliations.Add('A');
             affiliations.Add('N');
+
+            spells.Add("NoSpell");
         }
 
 
@@ -81,9 +85,9 @@ namespace EnemyLogic
 
 
         //Makes it so that the enemy can take damage
-        public int TakeDamage(int damage)
+        public void TakeDamage(int damage, string usedSpell)
         {
-            return health;
+            
         }
     }
 
@@ -179,6 +183,21 @@ namespace EnemyLogic
             int index = random.Next(elementalAffiliation.Count);
 
             elementAffiliation = elementalAffiliation[index];
+
+
+            if(elementAffiliation == 'F')
+            {
+                printAffiliation = "Fire";
+            }else if(elementAffiliation == 'E')
+            {
+                printAffiliation = "Earth";
+            }else if(elementAffiliation == 'W')
+            {
+                printAffiliation = "Water";
+            }else if(elementAffiliation == 'A')
+            {
+                printAffiliation = "Air";
+            }
         }
 
 
